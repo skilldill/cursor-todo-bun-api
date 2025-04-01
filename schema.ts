@@ -1,8 +1,18 @@
-import { sql } from 'drizzle-orm';
-import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { Database } from 'bun:sqlite';
 
-export const todos = sqliteTable('todos', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  text: text('text').notNull(),
-  created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
-}); 
+export interface Todo {
+  id: number;
+  text: string;
+  created_at: string;
+}
+
+export const db = new Database('todos.db');
+
+// Create todos table if it doesn't exist
+db.run(`
+  CREATE TABLE IF NOT EXISTS todos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    text TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`); 
