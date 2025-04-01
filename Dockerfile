@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-COPY package.json bun.lockb ./
+COPY package.json ./
 RUN bun install
 
 COPY . .
