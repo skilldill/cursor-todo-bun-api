@@ -5,8 +5,6 @@ services:
     build: .
     container_name: simple-api
     restart: unless-stopped
-    volumes:
-      - ./todos.db:/app/todos.db
     environment:
       - PORT=4000
     networks:
@@ -15,7 +13,6 @@ services:
   nginx:
     image: nginx:alpine
     container_name: nginx-proxy
-    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
